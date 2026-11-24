@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrendingDailyFinds Admin</title>
+  <link rel="stylesheet" href="admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div id="loginScreen" class="screen">
+    <div class="login-card">
+      <div class="brand">Trending<span>Daily</span>Finds</div>
+      <h1>Admin Panel</h1>
+      <p>Sign in to manage products, prices and affiliate links.</p>
+      <form id="loginForm">
+        <label>Email</label>
+        <input id="email" type="email" required autocomplete="email">
+        <label>Password</label>
+        <input id="password" type="password" required autocomplete="current-password">
+        <button type="submit">Sign In</button>
+        <div id="loginMessage" class="message"></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand">Trending<span>Daily</span>Finds</div>
+      <div class="admin-label">ADMIN PANEL</div>
+      <nav>
+        <button class="nav-item active" data-view="products">📦 Products</button>
+        <button class="nav-item" data-view="add">➕ Add Product</button>
+      </nav>
+      <button id="logoutBtn" class="logout">Log Out</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="pageTitle">Products</h1>
+          <p>Manage your TrendingDailyFinds catalog.</p>
+        </div>
+        <button id="newProductBtn" class="primary">+ Add Product</button>
+      </header>
+
+      <section id="productsView" class="view">
+        <div class="toolbar">
+          <input id="productSearch" placeholder="Search products...">
+          <select id="categoryFilter">
+            <option value="">All categories</option>
+            <option>Electronics</option>
+            <option>Home & Living</option>
+            <option>Kitchen</option>
+            <option>Beauty & Care</option>
+            <option>Fashion</option>
+            <option>Fitness</option>
+            <option>Gifts</option>
+            <option>Pet Supplies</option>
+          </select>
+        </div>
+        <div id="statusMessage" class="message"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th><th>Category</th><th>Price</th><th>Badge</th><th>Active</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="productRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="formView" class="view hidden">
+        <form id="productForm" class="product-form">
+          <input type="hidden" id="productId">
+          <div class="form-grid">
+            <div class="field full">
+              <label>Product name *</label>
+              <input id="name" required maxlength="150">
+            </div>
+            <div class="field">
+              <label>Category *</label>
+              <select id="category" required>
+                <option value="">Select category</option>
+                <option>Electronics</option>
+                <option>Home & Living</option>
+                <option>Kitchen</option>
+                <option>Beauty & Care</option>
+                <option>Fashion</option>
+                <option>Fitness</option>
+                <option>Gifts</option>
+                <option>Pet Supplies</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Price</label>
+              <input id="price" placeholder="29.99">
+            </div>
+            <div class="field">
+              <label>Rating</label>
+              <input id="rating" type="number" min="0" max="5" step="0.1" value="5">
+            </div>
+            <div class="field">
+              <label>Review count</label>
+              <input id="reviews" type="number" min="0" value="0">
+            </div>
+            <div class="field">
+              <label>Badge</label>
+              <select id="badge">
+                <option value="">None</option>
+                <option>TRENDING</option>
+                <option>POPULAR</option>
+                <option>HOT</option>
+                <option>BEST SELLER</option>
+                <option>DEAL</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label>Product image URL</label>
+              <input id="imageUrl" type="url" placeholder="https://...">
+            </div>
+            <div class="field full">
+              <label>AliExpress / affiliate link *</label>
+              <input id="affiliateUrl" type="url" required placeholder="https://s.click.aliexpress.com/...">
+            </div>
+            <div class="field full">
+              <label>Description</label>
+              <textarea id="description" rows="4"></textarea>
+            </div>
+            <div class="field checkbox">
+              <label><input id="isActive" type="checkbox" checked> Show this product on the website</label>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" id="cancelBtn" class="secondary">Cancel</button>
+            <button type="submit" class="primary">Save Product</button>
+          </div>
+          <div id="formMessage" class="message"></div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
